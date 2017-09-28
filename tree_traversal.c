@@ -42,6 +42,32 @@ void postorder(struct node *q){
 	printf("%d\t",q->data);
 	
 }
+int height(struct node *q){
+	if(q == NULL)
+		return 0;
+	if(q->left > q->right)
+		return (q->left+1);
+	else
+		return (q->right +1);
+}
+
+void print_given_level(struct node *q, int level){
+	if(q == NULL)
+		return;
+	if(level == 1)
+		printf("%d\t", q->data);
+	else if(level > 1){
+		print_given_level(q->left, level - 1);
+		print_given_level(q->right, level - 1);
+
+	}
+}
+void print_level_order(struct node *root){
+	int h = height(root);
+	int i;
+	for(i = 0; i <= h; i++)
+		print_given_level(root, i);
+}
 
 int main(){
 	struct node *root = New_Node(1);
@@ -55,4 +81,8 @@ int main(){
 	preorder(root);
 	printf("\nPostorder Traversal: ");
 	postorder(root);
+	printf("\nLevelorder Traversal: ");
+	print_level_order(root);
+	
+
 }
